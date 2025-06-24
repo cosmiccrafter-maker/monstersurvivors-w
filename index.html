@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>小游戏集合</title>
+  <style>
+    body {
+      font-family: "微软雅黑", Arial, sans-serif;
+      margin: 20px;
+      background: #f0f0f0;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .game-card {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .game-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+    }
+    .game-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+    .game-card h3 {
+      margin: 12px 0 6px 0;
+      color: #222;
+    }
+    .game-card p {
+      color: #666;
+      font-size: 14px;
+      height: 36px;
+      overflow: hidden;
+    }
+    button {
+      margin-top: 10px;
+      background-color: #007bff;
+      border: none;
+      padding: 8px 15px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #gameFrameContainer {
+      margin-top: 40px;
+      text-align: center;
+    }
+    iframe {
+      width: 100%;
+      max-width: 900px;
+      height: 600px;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎮 我的小游戏集合</h1>
+
+  <div class="game-grid" id="gameGrid"></div>
+
+  <div id="gameFrameContainer"></div>
+
+  <script>
+    // 1. 游戏列表（你可以根据需要添加游戏）
+    const games = [
+      {
+        title: "怪物幸存者",
+        description: "挑战无尽的怪物，看看你能活多久！",
+        thumbnail: "https://cloud.onlinegames.io/games/2025/unity/monster-survivors/thumb.jpg",
+        url: "https://cloud.onlinegames.io/games/2025/unity/monster-survivors/index-0g.HTML"
+      },
+      {
+        title: "跳跃小球",
+        description: "控制小球躲避障碍，跳得更远！",
+        thumbnail: "https://example.com/jump-ball.jpg",
+        url: "https://example.com/jump-ball-game"
+      }
+      // 你可以继续添加更多游戏对象
+    ];
+
+    // 2. 渲染游戏卡片
+    const gameGrid = document.getElementById("gameGrid");
+    const gameFrameContainer = document.getElementById("gameFrameContainer");
+
+    games.forEach((game, index) => {
+      const card = document.createElement("div");
+      card.className = "game-card";
+
+      card.innerHTML = `
+        <img src="${game.thumbnail}" alt="${game.title}" />
+        <h3>${game.title}</h3>
+        <p>${game.description}</p>
+        <button onclick="playGame(${index})">开始游戏</button>
+      `;
+
+      gameGrid.appendChild(card);
+    });
+
+    // 3. 点击按钮，显示游戏 iframe
+    function playGame(index) {
+      const game = games[index];
+      gameFrameContainer.innerHTML = `
+        <h2>正在玩: ${game.title}</h2>
+        <iframe src="${game.url}" allowfullscreen></iframe>
+      `;
+      // 页面自动滚动到游戏位置
+      gameFrameContainer.scrollIntoView({ behavior: "smooth" });
+    }
+  </script>
+</body>
+</html>
